@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "xpress": "^2.4.6"
+  }
+}
