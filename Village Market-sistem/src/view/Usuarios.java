@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.JButton;
+import java.awt.Toolkit;
 
 public class Usuarios extends JFrame {
 
@@ -19,7 +20,7 @@ public class Usuarios extends JFrame {
 	private JTextField txtId;
 	private JTextField txtNome;
 	private JTextField txtSenha;
-	private JTextField textField_3;
+	private JTextField txtEmail;
 	private JTextField txtNomeCompleto;
 	private JTextField txtCpf;
 	private JTextField txtIdentificacao;
@@ -44,7 +45,8 @@ public class Usuarios extends JFrame {
 	 * Create the frame.
 	 */
 	public Usuarios() {
-		setTitle("Usuario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/icones/imagem-do-usuario-com-fundo-preto.png")));
+		setTitle("Cadastrar");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 614, 299);
 		contentPane = new JPanel();
@@ -67,10 +69,10 @@ public class Usuarios extends JFrame {
 		txtSenha.setBounds(442, 26, 86, 20);
 		contentPane.add(txtSenha);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(92, 101, 86, 20);
-		contentPane.add(textField_3);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(92, 101, 86, 20);
+		contentPane.add(txtEmail);
 		
 		txtNomeCompleto = new JTextField();
 		txtNomeCompleto.setColumns(10);
@@ -107,6 +109,7 @@ public class Usuarios extends JFrame {
 		contentPane.add(lblCpf);
 		
 		txtIdentificacao = new JTextField();
+		txtIdentificacao.setEnabled(false);
 		txtIdentificacao.setBackground(Color.GREEN);
 		txtIdentificacao.setHorizontalAlignment(SwingConstants.CENTER);
 		txtIdentificacao.setBounds(0, 216, 605, 41);
