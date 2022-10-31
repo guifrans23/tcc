@@ -19,6 +19,8 @@ public class Pedido extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JTextField txtStatus;
+	private JLabel lblNewLabel_3;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -43,38 +45,47 @@ public class Pedido extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Pedido.class.getResource("/icones/pedido-processado.png")));
 		setTitle("Pedido");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 401, 231);
+		setBounds(100, 100, 401, 288);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		txtIdPedido = new JTextField();
-		txtIdPedido.setBounds(102, 36, 33, 20);
+		txtIdPedido.setBounds(75, 90, 33, 20);
 		contentPane.add(txtIdPedido);
 		txtIdPedido.setColumns(10);
 		
 		txtIdUsu = new JTextField();
 		txtIdUsu.setColumns(10);
-		txtIdUsu.setBounds(102, 92, 33, 20);
+		txtIdUsu.setBounds(75, 146, 46, 20);
 		contentPane.add(txtIdUsu);
 		
-		lblNewLabel = new JLabel("IdPedido");
-		lblNewLabel.setBounds(31, 39, 61, 14);
+		lblNewLabel = new JLabel("Id Pedido");
+		lblNewLabel.setBounds(10, 93, 61, 14);
 		contentPane.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("IdUsuario");
-		lblNewLabel_1.setBounds(31, 95, 61, 14);
+		lblNewLabel_1 = new JLabel("Data Pedido");
+		lblNewLabel_1.setBounds(10, 149, 61, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		lblNewLabel_2 = new JLabel("Status");
-		lblNewLabel_2.setBounds(31, 150, 46, 14);
+		lblNewLabel_2 = new JLabel("Total");
+		lblNewLabel_2.setBounds(10, 204, 46, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		txtStatus = new JTextField();
 		txtStatus.setColumns(10);
-		txtStatus.setBounds(102, 147, 33, 20);
+		txtStatus.setBounds(75, 201, 61, 20);
 		contentPane.add(txtStatus);
+		
+		lblNewLabel_3 = new JLabel("Id Usuario");
+		lblNewLabel_3.setBounds(10, 24, 61, 14);
+		contentPane.add(lblNewLabel_3);
+		
+		textField = new JTextField();
+		textField.setBounds(75, 21, 26, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
 	}
 
 }

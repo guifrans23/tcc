@@ -6,8 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Atxy2k.CustomTextField.RestrictedTextField;
+import model.DAO;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -18,12 +23,17 @@ import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUsuLogin;
-	private JTextField txtSenhaLogin;
+	private JTextField txtLogin;
+	private JTextField txtSenha;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JLabel lblNewLabel_3;
@@ -36,7 +46,7 @@ public class Login extends JFrame {
 	private JTextField textField_7;
 	private JLabel lblNewLabel_7;
 	private JTextField textField_8;
-	private JButton btnNewButton;
+	private JButton btnOk;
 	private JButton btnCancelar;
 	private JLabel lblNewLabel_8;
 	private JLabel lblNewLabel_9;
@@ -62,6 +72,12 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+			addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowActivated(WindowEvent e) {
+					status();
+				}
+			});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/icones/do-utilizador.png")));
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,15 +107,15 @@ public class Login extends JFrame {
 		btnCancelar.setBounds(442, 293, 120, 23);
 		contentPane.add(btnCancelar);
 		
-		btnNewButton = new JButton("\u2714 OK");
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBounds(342, 293, 76, 23);
-		contentPane.add(btnNewButton);
+		btnOk = new JButton("\u2714 OK");
+		btnOk.setBorderPainted(false);
+		btnOk.setBounds(342, 293, 76, 23);
+		contentPane.add(btnOk);
 		
-		txtUsuLogin = new JTextField();
-		txtUsuLogin.setBounds(415, 142, 120, 20);
-		contentPane.add(txtUsuLogin);
-		txtUsuLogin.setColumns(10);
+		txtLogin = new JTextField();
+		txtLogin.setBounds(415, 142, 120, 20);
+		contentPane.add(txtLogin);
+		txtLogin.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Usuario");
 		lblNewLabel.setBounds(359, 145, 46, 14);
@@ -114,10 +130,10 @@ public class Login extends JFrame {
 		textField_7.setBounds(353, 130, 205, 41);
 		contentPane.add(textField_7);
 		
-		txtSenhaLogin = new JTextField();
-		txtSenhaLogin.setColumns(10);
-		txtSenhaLogin.setBounds(415, 210, 120, 20);
-		contentPane.add(txtSenhaLogin);
+		txtSenha = new JTextField();
+		txtSenha.setColumns(10);
+		txtSenha.setBounds(415, 210, 120, 20);
+		contentPane.add(txtSenha);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBackground(UIManager.getColor("InternalFrame.inactiveTitleGradient"));
@@ -154,10 +170,10 @@ public class Login extends JFrame {
 		lblNewLabel_2.setBounds(437, 343, 48, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/icones/dboff.png")));
-		lblNewLabel_1.setBounds(427, 365, 48, 48);
-		contentPane.add(lblNewLabel_1);
+		lblStatus = new JLabel("");
+		lblStatus.setIcon(new ImageIcon(Login.class.getResource("/icones/dboff.png")));
+		lblStatus.setBounds(427, 365, 48, 48);
+		contentPane.add(lblStatus);
 		
 		textField_2 = new JTextField();
 		textField_2.setBackground(SystemColor.inactiveCaption);
@@ -199,5 +215,73 @@ public class Login extends JFrame {
 		textField_9.setBounds(0, 0, 584, 413);
 		contentPane.add(textField_9);
 		textField_9.setColumns(10);
+	}// fim do construtor
+	
+	DAO dao = new DAO();
+	private JLabel lblStatus;
+	
+	/**
+	 * Método usado para verificar o status do servidor
+	 */
+	
+	private void status() {
+		try {
+			Connection con = dao.conectar();
+			
+			if ( con == null ) {
+				lblStatus.setIcon(new ImageIcon(Login.class.getResource("/icones/dboff.png")));
+			} else {
+				lblStatus.setIcon(new ImageIcon(Login.class.getResource("/icones/dbon.png")));
+			}
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
-}
+	
+	/**
+	 * Método usado para autentificar um usuário
+	 */
+	
+	private void logar() {
+		String capturaSenha = new String(txtSenha.getPassword());
+		if (txtLogin.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Informe o login");
+			txtLogin.requestFocus();
+		} else if (txtSenha.getPassword().length == 0) {
+			txtSenha.requestFocus();
+		} else {
+			String read = "select * from usuarios where login=? and senha=md5(5)";
+			try {
+				Connection con = dao.conectar();
+				PreparedStatement pst = con.prepareStatement(read);
+				pst.setString(1, txtLogin.getText());
+				pst.setString(2, capturaSenha);
+				ResultSet rs = pst.executeQuery();
+				if (rs.next()) {
+					String perfil = rs.getString(5);
+					Principal principal = new Principal();
+					if (perfil.equals("admin")) {
+						principal.setVisible(true);
+						con.close();
+						this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Login e/ou senha invalido(s)");
+						txtLogin.setText(null);
+					} catch (Exception e) {
+					System.out.println(e);
+				}
+			}		
+	
+}// fim do codigo
+
+
+
+
+
+
+
+
+
+
+

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.DAO;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -39,7 +42,7 @@ public class Principal extends JFrame {
 	public Principal() {
 		setTitle("Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 905, 528);
+		setBounds(100, 100, 800, 528);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,20 +56,12 @@ public class Principal extends JFrame {
 		btnCliente.setBounds(299, 22, 128, 128);
 		contentPane.add(btnCliente);
 		
-		JButton btnPagamentos = new JButton("");
-		btnPagamentos.setBackground(Color.WHITE);
-		btnPagamentos.setToolTipText("Pagamentos");
-		btnPagamentos.setBorderPainted(false);
-		btnPagamentos.setIcon(new ImageIcon(Principal.class.getResource("/icones/forma-de-pagamento.png")));
-		btnPagamentos.setBounds(736, 22, 128, 128);
-		contentPane.add(btnPagamentos);
-		
 		JButton btnSobre = new JButton("");
+		btnSobre.setIcon(new ImageIcon(Principal.class.getResource("/icones/informacoes (1).png")));
 		btnSobre.setBackground(Color.WHITE);
 		btnSobre.setToolTipText("Sobre");
 		btnSobre.setBorderPainted(false);
-		btnSobre.setIcon(new ImageIcon(Principal.class.getResource("/icones/informacoes.png")));
-		btnSobre.setBounds(736, 291, 128, 128);
+		btnSobre.setBounds(730, 22, 32, 32);
 		contentPane.add(btnSobre);
 		
 		JButton btnRelatorios = new JButton("");
@@ -123,4 +118,8 @@ public class Principal extends JFrame {
 	}// fim do construtor
 
 
+	DAO dao = new DAO();
+	
+
+	
 }// fim do codigo
