@@ -16,6 +16,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
 import java.sql.Connection;
@@ -28,6 +29,8 @@ import java.util.Date;
 import com.toedter.calendar.JDateChooser;
 
 import Atxy2k.CustomTextField.RestrictedTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Produto extends JFrame {
 
@@ -111,18 +114,33 @@ public class Produto extends JFrame {
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarProduto();
+			}
+		});
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setIcon(new ImageIcon(Produto.class.getResource("/icones/create.png")));
 		btnNewButton.setBounds(607, 424, 64, 64);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterarProduto();
+			}
+		});
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setIcon(new ImageIcon(Produto.class.getResource("/icones/update.png")));
 		btnNewButton_1.setBounds(681, 424, 64, 64);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluirProduto();
+			}
+		});
 		btnNewButton_2.setBorderPainted(false);
 		btnNewButton_2.setIcon(new ImageIcon(Produto.class.getResource("/icones/delete.png")));
 		btnNewButton_2.setBounds(755, 424, 64, 64);
@@ -256,7 +274,7 @@ public class Produto extends JFrame {
 			} else {
 				JOptionPane.showMessageDialog(null, "Produto não cadastrado");
 			}
-			con.close();)
+			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -425,10 +443,3 @@ public class Produto extends JFrame {
 		
 	}
 } // fim do codigo
-
-
-
-
-
-
-

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 /**
  * Classe modelo - Conexão com o banco
  * 
- * @author Professor José de Assis
+ * @author Village Market 
  *
  */
 public class DAO {

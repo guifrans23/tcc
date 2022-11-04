@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Atxy2k.CustomTextField.RestrictedTextField;
 import model.DAO;
 
 import javax.swing.JTextField;
@@ -23,7 +24,12 @@ import java.sql.ResultSet;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Usuarios extends JFrame {
 
@@ -64,6 +70,17 @@ public class Usuarios extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(283, 101, 86, 20);
+		contentPane.add(txtPassword);
+		
+		txtSenha = new JTextField();
+		txtSenha.setColumns(10);
+		txtSenha.setBounds(283, 101, 86, 20);
+		contentPane.add(txtSenha);
+		
+		RestrictedTextField validarSenha = new RestrictedTextField(txtSenha);
+		
 		txtId = new JTextField();
 		txtId.setBounds(92, 26, 86, 20);
 		contentPane.add(txtId);
@@ -78,11 +95,6 @@ public class Usuarios extends JFrame {
 		txtLogin.setColumns(10);
 		txtLogin.setBounds(92, 101, 86, 20);
 		contentPane.add(txtLogin);
-		
-		txtSenha = new JTextField();
-		txtSenha.setColumns(10);
-		txtSenha.setBounds(283, 101, 86, 20);
-		contentPane.add(txtSenha);
 		
 		JLabel lblNewLabel_1 = new JLabel("Id");
 		lblNewLabel_1.setBounds(58, 29, 29, 14);
@@ -110,28 +122,69 @@ public class Usuarios extends JFrame {
 		contentPane.add(cboPerfil);
 		
 		btnAlterar = new JButton("");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterarUsuario();
+			}
+		});
 		btnAlterar.setBorderPainted(false);
 		btnAlterar.setIcon(new ImageIcon(Usuarios.class.getResource("/icones/update.png")));
 		btnAlterar.setBounds(259, 269, 64, 64);
 		contentPane.add(btnAlterar);
 		
 		btnAdicionar = new JButton("");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adicionarUsuario();
+			}
+		});
 		btnAdicionar.setBorderPainted(false);
 		btnAdicionar.setIcon(new ImageIcon(Usuarios.class.getResource("/icones/create.png")));
 		btnAdicionar.setBounds(183, 269, 64, 64);
 		contentPane.add(btnAdicionar);
 		
 		btnRemover = new JButton("");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluirUsuario();
+			}
+		});
 		btnRemover.setBorderPainted(false);
 		btnRemover.setIcon(new ImageIcon(Usuarios.class.getResource("/icones/delete.png")));
 		btnRemover.setBounds(333, 269, 64, 64);
 		contentPane.add(btnRemover);
+		
+		
+		RestrictedTextField validarUsuario = new RestrictedTextField(txtUsuario);
+		
+		RestrictedTextField validarLogin = new RestrictedTextField(txtLogin);
+		
+		getRootPane().setDefaultButton(btnEntrar);
+		
+		btnEntrar = new JButton("Acessar");
+		btnEntrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnEntrar.setBounds(58, 299, 89, 23);
+		contentPane.add(btnEntrar);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(184, 25, 29, 23);
+		contentPane.add(btnNewButton);
+		validarSenha.setLimit(255);
+		
+		
+		
 	}// fim do construtor 
 	
 	DAO dao = new DAO();
 	private JButton btnAlterar;
 	private JButton btnAdicionar;
 	private JButton btnRemover;
+	private JPasswordField txtPassword;
+	private JButton btnEntrar;
+	private JButton btnNewButton;
 	
 	private void pesquisarUsuario() {
 		if (txtLogin.getText().isEmpty()) {
@@ -172,7 +225,7 @@ public class Usuarios extends JFrame {
 	}
 	
 	private void adicionarUsuario() {
-		String capturaSenha = new String(txtSenha.getPassword());
+		String capturaSenha = new String(txtPassword.getPassword());
 		if (txtUsuario.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o usuario");
 			txtUsuario.requestFocus();
@@ -182,7 +235,7 @@ public class Usuarios extends JFrame {
 		} else if (cboPerfil.getSelectedItem().equals("")) {
 			JOptionPane.showMessageDialog(null, "Selecione o perfil do usuário");
 			cboPerfil.requestFocus();
-		} else if (txtSenha.getPassword().length == 0) {
+		} else if (txtPassword.getPassword().length == 0) {
 			JOptionPane.showMessageDialog(null, "Preencha senha");
 			txtSenha.requestFocus();
 		} else {
@@ -209,7 +262,7 @@ public class Usuarios extends JFrame {
 	}
 	
 	private void alterarUsuario() {
-		String capturaSenha = new String(txtSenha.getPassword());
+		String capturaSenha = new String(txtPassword.getPassword());
 		if (txtUsuario.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o usuario");
 			txtUsuario.requestFocus();
@@ -219,11 +272,12 @@ public class Usuarios extends JFrame {
 		} else if (cboPerfil.getSelectedItem().equals("")) {
 			JOptionPane.showMessageDialog(null, "Selecione o perfil do usuário");
 			cboPerfil.requestFocus();
-		} else if (txtSenha.getPassword().length == 0) {
+		} else if (txtPassword.getPassword().length == 0) {
 			JOptionPane.showMessageDialog(null, "Preencha senha");
 			txtSenha.requestFocus();
 	} else {
 		String update = "update usuarios set usuario=?, login=? ,senha=md5(?), perfil=? where idusu=?";
+		try {
 		Connection con = dao.conectar();
 		PreparedStatement pst =con.prepareStatement(update);
 		pst.setString(1, txtUsuario.getText());
@@ -235,15 +289,16 @@ public class Usuarios extends JFrame {
 		JOptionPane.showMessageDialog(null, "Dados so usuário alterados com sucesso");
 		limparCampos();
 		con.close();
+		
 	} catch (SQLIntegrityConstraintViolationException ex) {
 		JOptionPane.showMessageDialog(null, "Login em uso.\nEscolha outro login.");
 		txtLogin.setText(null);
 		txtLogin.requestFocus();
 	} catch (Exception e) {
 		System.out.println(e);
+		}
 	}
-	}
-	
+}
 	private void excluirUsuario() {
 		int confirma = JOptionPane.showConfirmDialog(null, "Confirmar a exclusão do usuário?", "Atenção!",JOptionPane.YES_NO_OPTION);
 		if (confirma == JOptionPane.YES_OPTION) {
@@ -278,5 +333,4 @@ public class Usuarios extends JFrame {
 		txtLogin.requestFocus();
 		
 	}
-	
 }// fim do codigo

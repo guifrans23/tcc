@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -86,6 +87,6 @@ public class Pedido extends JFrame {
 		textField.setBounds(75, 21, 26, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-	}
+	}// fim do construtor
 
-}
+}// fim do codigo

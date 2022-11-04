@@ -5,6 +5,9 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -21,6 +24,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import model.DAO;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -144,7 +148,7 @@ public class Relatorio extends JFrame {
 					tabela.addCell(col3);
 					tabela.addCell(col4);
 					// Acessar o banco de dados
-
+					
 					document.add(tabela);
 	} catch (Exception e) {
 		System.out.println();
@@ -184,7 +188,21 @@ public class Relatorio extends JFrame {
 			tabela.addCell(col3);
 			tabela.addCell(col4);
 			// Acessar o banco de dados
-
+			String relClientes = "select nome,fone,cpf,email from clientes";
+			try {
+				Connection con = dao.conectar();
+				PreparedStatement pst = con.prepareStatement(relClientes);
+				ResultSet rs = pst.executeQuery();
+				while (rs.next()) {
+					tabela.addCell(rs.getString(1));
+					tabela.addCell(rs.getString(2));
+					tabela.addCell(rs.getString(3));
+					tabela.addCell(rs.getString(4));
+				}				
+				
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 			document.add(tabela);
 		} catch (Exception e) {
 			System.out.println();
@@ -352,6 +370,22 @@ public class Relatorio extends JFrame {
 			tabela.addCell(col3);
 			tabela.addCell(col4);
 			// Acessar o banco de dados
+			String relReposicao = "select codigo,produto,date_format(dataval,'%d/%m/%Y'), estoque, estoquemin from produtos where estoque < estoquemin";
+			try {
+				Connection con = dao.conectar();
+				PreparedStatement pst = con.prepareStatement(relReposicao);
+				ResultSet rs = pst.executeQuery();
+				while (rs.next()) {
+					tabela.addCell(rs.getString(1));
+					tabela.addCell(rs.getString(2));
+					tabela.addCell(rs.getString(3));
+					tabela.addCell(rs.getString(4));
+					tabela.addCell(rs.getString(5));
+				}				
+				
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 
 			document.add(tabela);
 		} catch (Exception e) {

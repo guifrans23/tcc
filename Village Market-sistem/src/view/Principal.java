@@ -13,7 +13,11 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
@@ -49,6 +53,22 @@ public class Principal extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnCliente = new JButton("");
+		btnCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Clientes clientes = new Clientes();
+				clientes.setVisible(true);
+			}
+		});
+		
+		JButton btnLogin = new JButton("New button");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login login = new Login();
+				login.setVisible(true);
+			}
+		});
+		btnLogin.setBounds(88, 208, 89, 32);
+		contentPane.add(btnLogin);
 		btnCliente.setBackground(Color.WHITE);
 		btnCliente.setToolTipText("Clientes");
 		btnCliente.setBorderPainted(false);
@@ -57,6 +77,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnCliente);
 		
 		JButton btnSobre = new JButton("");
+		btnSobre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sobre sobre = new Sobre();
+				sobre.setVisible(true);
+			}
+		});
 		btnSobre.setIcon(new ImageIcon(Principal.class.getResource("/icones/informacoes (1).png")));
 		btnSobre.setBackground(Color.WHITE);
 		btnSobre.setToolTipText("Sobre");
@@ -65,6 +91,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnSobre);
 		
 		JButton btnRelatorios = new JButton("");
+		btnRelatorios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Relatorio relatorio = new Relatorio();
+				relatorio.setVisible(true);
+			}
+		});
 		btnRelatorios.setBackground(Color.WHITE);
 		btnRelatorios.setToolTipText("Rel\u00E1torios");
 		btnRelatorios.setBorderPainted(false);
@@ -73,6 +105,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnRelatorios);
 		
 		JButton btnFornecedores = new JButton("");
+		btnFornecedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Fornecedor fornecedor = new Fornecedor();
+				fornecedor.setVisible(true);
+			}
+		});
 		btnFornecedores.setBackground(Color.WHITE);
 		btnFornecedores.setToolTipText("Fornecedores");
 		btnFornecedores.setBorderPainted(false);
@@ -81,6 +119,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnFornecedores);
 		
 		JButton btnPedidos = new JButton("");
+		btnPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Pedido pedido = new Pedido();
+				pedido.setVisible(true);
+			}
+		});
 		btnPedidos.setBackground(Color.WHITE);
 		btnPedidos.setToolTipText("Pedidos");
 		btnPedidos.setBorderPainted(false);
@@ -89,6 +133,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnPedidos);
 		
 		JButton btnProdutos = new JButton("");
+		btnProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Produto produto = new Produto();
+				produto.setVisible(true);
+			}
+		});
 		btnProdutos.setBackground(Color.WHITE);
 		btnProdutos.setToolTipText("Produtos");
 		btnProdutos.setBorderPainted(false);
@@ -97,6 +147,12 @@ public class Principal extends JFrame {
 		contentPane.add(btnProdutos);
 		
 		JButton btnUsuario = new JButton("");
+		btnUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Usuarios usuarios = new Usuarios();
+				usuarios.setVisible(true);
+			}
+		});
 		btnUsuario.setBackground(Color.WHITE);
 		btnUsuario.setToolTipText("Usu\u00E1rio");
 		btnUsuario.setBorderPainted(false);
@@ -119,7 +175,4 @@ public class Principal extends JFrame {
 
 
 	DAO dao = new DAO();
-	
-
-	
 }// fim do codigo

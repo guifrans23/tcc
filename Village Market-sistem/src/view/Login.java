@@ -22,18 +22,22 @@ import javax.swing.UIManager;
 import javax.swing.JToggleButton;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
+
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtLogin;
-	private JTextField txtSenha;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JLabel lblNewLabel_3;
@@ -46,8 +50,7 @@ public class Login extends JFrame {
 	private JTextField textField_7;
 	private JLabel lblNewLabel_7;
 	private JTextField textField_8;
-	private JButton btnOk;
-	private JButton btnCancelar;
+	private JButton btnAcessar;
 	private JLabel lblNewLabel_8;
 	private JLabel lblNewLabel_9;
 	private JTextField textField_9;
@@ -87,6 +90,15 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		txtPassword = new JPasswordField();
+		txtPassword.setBounds(415, 210, 120, 20);
+		contentPane.add(txtPassword);
+		
+		textField = new JTextField();
+		textField.setBounds(415, 210, 120, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
 		lblNewLabel_9 = new JLabel("Village Market");
 		lblNewLabel_9.setBounds(70, 343, 109, 14);
 		contentPane.add(lblNewLabel_9);
@@ -102,15 +114,15 @@ public class Login extends JFrame {
 		lblNewLabel_7.setBounds(10, 28, 287, 272);
 		contentPane.add(lblNewLabel_7);
 		
-		btnCancelar = new JButton("\u274C Cancelar");
-		btnCancelar.setBorderPainted(false);
-		btnCancelar.setBounds(442, 293, 120, 23);
-		contentPane.add(btnCancelar);
-		
-		btnOk = new JButton("\u2714 OK");
-		btnOk.setBorderPainted(false);
-		btnOk.setBounds(342, 293, 76, 23);
-		contentPane.add(btnOk);
+		btnAcessar = new JButton(" Acessar");
+		btnAcessar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logar();
+			}
+		});
+		btnAcessar.setBorderPainted(false);
+		btnAcessar.setBounds(415, 293, 85, 23);
+		contentPane.add(btnAcessar);
 		
 		txtLogin = new JTextField();
 		txtLogin.setBounds(415, 142, 120, 20);
@@ -129,11 +141,6 @@ public class Login extends JFrame {
 		textField_7.setBackground(UIManager.getColor("InternalFrame.inactiveTitleGradient"));
 		textField_7.setBounds(353, 130, 205, 41);
 		contentPane.add(textField_7);
-		
-		txtSenha = new JTextField();
-		txtSenha.setColumns(10);
-		txtSenha.setBounds(415, 210, 120, 20);
-		contentPane.add(txtSenha);
 		
 		JLabel lblSenha = new JLabel("Senha");
 		lblSenha.setBackground(UIManager.getColor("InternalFrame.inactiveTitleGradient"));
@@ -219,6 +226,8 @@ public class Login extends JFrame {
 	
 	DAO dao = new DAO();
 	private JLabel lblStatus;
+	private JTextField textField;
+	private JPasswordField txtPassword;
 	
 	/**
 	 * Método usado para verificar o status do servidor
@@ -227,29 +236,28 @@ public class Login extends JFrame {
 	private void status() {
 		try {
 			Connection con = dao.conectar();
-			
-			if ( con == null ) {
+			if (con == null) {
 				lblStatus.setIcon(new ImageIcon(Login.class.getResource("/icones/dboff.png")));
 			} else {
 				lblStatus.setIcon(new ImageIcon(Login.class.getResource("/icones/dbon.png")));
 			}
 			con.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
 	}
-	
+
 	/**
 	 * Método usado para autentificar um usuário
 	 */
 	
 	private void logar() {
-		String capturaSenha = new String(txtSenha.getPassword());
+		String capturaSenha = new String(txtPassword.getPassword());
 		if (txtLogin.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Informe o login");
 			txtLogin.requestFocus();
-		} else if (txtSenha.getPassword().length == 0) {
-			txtSenha.requestFocus();
+		} else if (txtPassword.getPassword().length == 0) {
+			txtPassword.requestFocus();
 		} else {
 			String read = "select * from usuarios where login=? and senha=md5(5)";
 			try {
@@ -258,21 +266,13 @@ public class Login extends JFrame {
 				pst.setString(1, txtLogin.getText());
 				pst.setString(2, capturaSenha);
 				ResultSet rs = pst.executeQuery();
-				if (rs.next()) {
-					String perfil = rs.getString(5);
-					Principal principal = new Principal();
-					if (perfil.equals("admin")) {
-						principal.setVisible(true);
-						con.close();
-						this.dispose();
-					} else {
-						JOptionPane.showMessageDialog(null, "Login e/ou senha invalido(s)");
-						txtLogin.setText(null);
-					} catch (Exception e) {
-					System.out.println(e);
-				}
-			}		
-	
+			con.close();
+			this.dispose();
+		} catch (Exception e) {
+			System.out.println(e);
+			} 	
+		}
+	}
 }// fim do codigo
 
 
