@@ -1,6 +1,6 @@
 <!-- 
 @author: guifrnas
-@data: 091122 -->
+@data: 09/11/22 -->
 
 <!DOCTYPE html>
 <html lang="Pt-Br">
@@ -38,14 +38,16 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Conteudo</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contato</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Localização</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Quem Somos</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mais informações
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Contato</a></li>
+                <li><a class="dropdown-item" href="#">Localização</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Quem Somos</a></li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -82,29 +84,85 @@
 
     </p>
   </div>
-  <div id="Contato">
-    <h3>Contato</h3>
-    <p>
-
-    </p>
-  </div>
-  <div id="Localização">
-    <h3>Localização</h3>
-    <p>
-
-    </p>
-  </div>
-  <div id="Quem_somos">
-    <h3>Quem Somos</h3>
-    <p>
-
-    </p>
-  </div>
 </div>
 
     <!-- Fim do Conteudo -->
     <!-- inicio do Rodapé-->
-    
+      <div>
+        <!-- menu do rodapé -->
+
+        <div class="menudanavbar">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Contato</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Localização</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Quem Somos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>.</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">...</div>
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+              <div class="container text-center">
+                <div class="row"> 
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.766052655054!2d-46.57716234997356!3d-23.54091536664631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5ec26cfdcfed%3A0x49e7eb66fd4f1f2!2sSenac%20Tatuap%C3%A9%20-%20Cel.%20Lu%C3%ADs%20Americano!5e0!3m2!1spt-BR!2sbr!4v1668043629274!5m2!1spt-BR!2sbr"
+                   width="1900" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+              <div class="container text-center">
+                  <div class="row">
+                    <div class="card" style="width: 18rem;">
+                      <img src="" class="card-img-top" alt="Guifrans">
+                      <div class="card-body">
+                        <h6>Guilherme A França</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                      <img src="" class="card-img-top" alt="EmanoelFE">
+                      <div class="card-body">
+                        <h6>Emanoel Felipe</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                      <img src="..." class="card-img-top" alt="alex">
+                      <div class="card-body">
+                        <h6>Gabriela Vasconcelo</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                      <img src="..." class="card-img-top" alt="Jhully">
+                      <div class="card-body">
+                        <h6>Jhully</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                      <img src="..." class="card-img-top" alt="Gabryel">
+                      <div class="card-body">
+                        <h6>Gabryel</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
+          </div>
+        </div>
+        
+        <!-- Fim do menu do Rodapé -->
+      </div>
     <!-- Fim do rodapé-->
   </div>
 </body>
