@@ -1,0 +1,19 @@
+* {
+  /* zerar as margens externas dos elementos */
+  margin: 0;
+  /* zerar as mensagens internas dos elementos */
+  padding: 0;
+  /* ajuste das caixas(box) dos elementos */
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 100px;
+  height: 10px;
+  border: 1px red solid;
+  z-index: 100000;
+}
+.logo img {
+  width: 100%;
+  height: auto;
+}
