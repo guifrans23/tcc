@@ -10,10 +10,38 @@
 .logo {
   width: 100px;
   height: 10px;
-  border: 1px red solid;
+  /* border: 1px red solid; */
   z-index: 100000;
 }
 .logo img {
   width: 100%;
   height: auto;
+}
+#apresentacao h3 {
+  text-align: center;
+}
+#apresentacao p {
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: justify;
+  font-size: 20px;
+}
+#sobre p {
+  padding-left: 50px;
+  padding-right: 50px;
+  text-align: justify;
+  font-size: 20px;
+}
+#sobre h2 {
+  text-align: center;
+}
+#video h2 {
+  text-align: center;
+  font-size: 30px;
+}
+.sobreimg {
+  justify-content: center;
+}
+.conteudo {
+  text-align: center;
 }
